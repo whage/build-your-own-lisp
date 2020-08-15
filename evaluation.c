@@ -3,11 +3,23 @@
 #include <editline/readline.h>
 #include <editline/history.h>
 
+void print_tags(mpc_ast_t *t, int indent) {
+	printf("  %s\n", t->tag);
+
+	for (int i = 0; i < t->children_num; i++) {
+		for (int j = 0; j < indent; j++) {
+			printf("  ");
+		}
+		print_tags(t->children[i], indent + 1);
+	}
+}
+
 long eval_op(long x, char *op, long y) {
 	if (strcmp(op, "+") == 0) { return x + y; }
 	if (strcmp(op, "-") == 0) { return x - y; }
 	if (strcmp(op, "*") == 0) { return x * y; }
 	if (strcmp(op, "/") == 0) { return x / y; }
+	if (strcmp(op, "%") == 0) { return x % y; }
 	return 0;
 }
 
@@ -40,12 +52,10 @@ int main(int argc, char** argv) {
 
 	char *grammar = "                                                                      \
 		number   : /-?[0-9]+(\\.[0-9]*)?/ ;                                                \
-		operator : '+'  | /add/ | '-' | /sub/ | '*' | /mul/ | '/' | /div/ ;                \
+		operator : '+'  | /add/ | '-' | /sub/ | '*' | /mul/ | '/' | /div/ | '%' | /mod/ ;  \
 		expr     : <number> | '(' <operator> <expr>+ ')' ;                                 \
 		lispy    : /^/ <operator> <expr>+ /$/ ;                                            \
 	";
-
-	//printf("%s", grammar);
 
 	mpca_lang(
 		MPCA_LANG_DEFAULT, 
@@ -62,8 +72,10 @@ int main(int argc, char** argv) {
 
 		mpc_result_t r;
 		if (mpc_parse("<stdin>", input, Lispy, &r)) {
+			print_tags(r.output, 0);
 			long result = eval(r.output);
-			printf("%li\n", result);
+			printf("Reslt of evaluation: %li\n", result);
+			mpc_ast_print(r.output);
 			mpc_ast_delete(r.output);
 		} else {
 			mpc_err_print(r.error);
