@@ -5,3 +5,6 @@ prompt: prompt.c
 
 parsing: parsing.c mpc.c mpc.h
 	cc -std=c99 -Wall parsing.c mpc.c -lm -ledit -o $(BUILD_DIR)/parsing
+
+evaluation: evaluation.c mpc.c mpc.h
+	cc -std=c99 -Wall evaluation.c mpc.c -lm -ledit -o $(BUILD_DIR)/evaluation
