@@ -11,3 +11,6 @@ evaluation: evaluation.c mpc.c mpc.h
 
 error_handling: error_handling.c mpc.c mpc.h
 	cc -std=c99 -Wall error_handling.c mpc.c -lm -ledit -o $(BUILD_DIR)/error_handling
+
+s_expressions: s_expressions.c mpc.c mpc.h
+	cc -std=c99 -Wall s_expressions.c mpc.c -lm -ledit -o $(BUILD_DIR)/s_expressions
