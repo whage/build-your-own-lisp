@@ -8,3 +8,6 @@ parsing: parsing.c mpc.c mpc.h
 
 evaluation: evaluation.c mpc.c mpc.h
 	cc -std=c99 -Wall evaluation.c mpc.c -lm -ledit -o $(BUILD_DIR)/evaluation
+
+error_handling: error_handling.c mpc.c mpc.h
+	cc -std=c99 -Wall error_handling.c mpc.c -lm -ledit -o $(BUILD_DIR)/error_handling
