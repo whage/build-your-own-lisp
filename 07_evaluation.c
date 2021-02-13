@@ -44,6 +44,12 @@ long eval(mpc_ast_t *t) {
 	return x;
 }
 
+void examine(mpc_ast_t *t) {
+	printf("tag: %s\n", t->children[0]->tag);
+	printf("contents: %s\n", t->children[0]->contents);
+	printf("children_num: %d\n", t->children[0]->children_num);
+}
+
 int main(int argc, char** argv) {
 	mpc_parser_t* Number = mpc_new("number");
 	mpc_parser_t* Operator = mpc_new("operator");
@@ -73,8 +79,9 @@ int main(int argc, char** argv) {
 		mpc_result_t r;
 		if (mpc_parse("<stdin>", input, Lispy, &r)) {
 			print_tags(r.output, 0);
+			examine(r.output);
 			long result = eval(r.output);
-			printf("Reslt of evaluation: %li\n", result);
+			printf("Result of evaluation: %li\n", result);
 			mpc_ast_print(r.output);
 			mpc_ast_delete(r.output);
 		} else {

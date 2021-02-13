@@ -150,7 +150,7 @@ int main(int argc, char** argv) {
 	";
 
 	mpca_lang(
-		MPCA_LANG_DEFAULT, 
+		MPCA_LANG_DEFAULT,
 		grammar,
 		Number, Symbol, Expr, Sexpr, Lispy
 	);
@@ -171,7 +171,7 @@ int main(int argc, char** argv) {
 			mpc_err_print(r.error);
 			mpc_err_delete(r.error);
 		}
-		
+
 		free(input);
 	}
 

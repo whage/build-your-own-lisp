@@ -16,8 +16,6 @@ int main(int argc, char** argv) {
 		lispy    : /^/ <operator> <expr>+ /$/ ;                                            \
 	";
 
-	printf("%s", grammar);
-
 	mpca_lang(
 		MPCA_LANG_DEFAULT, 
 		grammar,
